@@ -136,7 +136,8 @@ class MainWindow(QMainWindow):
         nav_layout.addWidget(self.language_combo)
 
         self.quick_theme_combo = QComboBox()
-        self.quick_theme_combo.addItems(['Dark', 'Light'])
+        self.quick_theme_combo.addItem(self.translator.translate('theme_dark', 'Dark'), 'dark')
+        self.quick_theme_combo.addItem(self.translator.translate('theme_light', 'Light'), 'light')
         theme = self.settings.value('theme', 'dark')
         self.quick_theme_combo.setCurrentIndex(0 if theme == 'dark' else 1)
         nav_layout.addWidget(self.quick_theme_combo)
@@ -309,6 +310,11 @@ class MainWindow(QMainWindow):
         bottom_bar_layout.addWidget(self.status_label)
         main_layout.addWidget(bottom_bar)
 
+    def _sync_theme_from_settings(self, idx):
+        self.quick_theme_combo.blockSignals(True)
+        self.quick_theme_combo.setCurrentIndex(idx)
+        self.quick_theme_combo.blockSignals(False)
+
     def connect_signals(self):
         self.btn_add.clicked.connect(self.on_add_link)
         self.url_input.returnPressed.connect(self.on_add_link)
@@ -325,7 +331,7 @@ class MainWindow(QMainWindow):
         self.btn_history.clicked.connect(lambda: self.page_stack.setCurrentIndex(1))
         self.btn_settings.clicked.connect(lambda: self.page_stack.setCurrentIndex(2))
         self.btn_about.clicked.connect(lambda: self.page_stack.setCurrentIndex(3))
-
+        self.settings_page.theme_combo.currentIndexChanged.connect(self._sync_theme_from_settings)
         # History re-download signal
         self.history_page.redownload_requested.connect(self._redownload_from_history)
         self.btn_open_save.clicked.connect(self.open_save_folder)
@@ -391,6 +397,9 @@ class MainWindow(QMainWindow):
         self.settings.setValue('theme', theme)
         self.settings.sync()
         ThemeManager(self.settings).apply_theme()
+        self.settings_page.theme_combo.blockSignals(True)
+        self.settings_page.theme_combo.setCurrentIndex(idx)
+        self.settings_page.theme_combo.blockSignals(False)
 
     def on_add_link(self):
         url = self.url_input.text().strip()

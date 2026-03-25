@@ -102,5 +102,7 @@
   "status_finalizing": "Finalizando...",
   "status_removing_audio_copy": "Eliminando audio (modo copia)...",
   "status_reencoding_video": "Recodificando video...",
-  "status_processing_audio": "Procesando video (eliminando audio)..."
+  "status_processing_audio": "Procesando video (eliminando audio)...",
+  "theme_dark": "Oscuro",
+  "theme_light": "Claro"
 }
