@@ -1,4 +1,0 @@
-PyQt6
-requests
-yt-dlp[curl-cffi]
-packaging
