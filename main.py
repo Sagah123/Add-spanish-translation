@@ -48,7 +48,7 @@ def main():
         if os.path.exists(icon_path):
             app.setWindowIcon(QIcon(icon_path))
         else:
-            logger.warning(f'Imagen no encontrado en la ruta: {icon_path}')
+            logger.warning(f'Image not found in root: {icon_path}')
 
         window = MainWindow(translator, settings)
 
@@ -59,7 +59,7 @@ def main():
 
         sys.exit(app.exec())
     except Exception as e:
-        logger.exception('Se ocurrio un error fatal al ejecutar.')
+        logger.exception('Fatal error on execution.')
         traceback.print_exc()
 
 
