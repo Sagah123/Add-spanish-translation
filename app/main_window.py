@@ -132,7 +132,7 @@ class MainWindow(QMainWindow):
         self.language_combo.addItems(['English', 'Русский', 'Українська', 'Español'])
         saved_language = self.settings.value('language', 'en')
         language_map = {'en': 0, 'ru': 1, 'uk': 2, 'es': 3}
-        self.language_combo.setCurrentIndex(language_map.get(saved_language, 3))
+        self.language_combo.setCurrentIndex(language_map.get(saved_language, 0))
         nav_layout.addWidget(self.language_combo)
 
         self.quick_theme_combo = QComboBox()
